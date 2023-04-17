@@ -77,13 +77,5 @@ namespace Napelem_API.Connection
             Console.WriteLine("Kapcsolat lezárva.");
         }
 
-        public void StopListening()
-        {
-            if (listener != null)
-            {
-                listener.Stop();
-                Console.WriteLine("Szerver leállítva.");
-            }
-        }
     }
 }
