@@ -11,6 +11,22 @@ namespace Napelem_API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Components",
+                columns: table => new
+                {
+                    componentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    quantity = table.Column<int>(type: "int", nullable: true),
+                    max_quantity = table.Column<int>(type: "int", nullable: true),
+                    price = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Components", x => x.componentID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
@@ -91,6 +107,9 @@ namespace Napelem_API.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Components");
+
             migrationBuilder.DropTable(
                 name: "Employees");
 

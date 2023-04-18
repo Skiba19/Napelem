@@ -46,7 +46,10 @@ namespace Napelem_API.Connection
             byte[] requestBuffer = Encoding.ASCII.GetBytes(serializedObject);
             stream.Write(requestBuffer, 0, requestBuffer.Length);
         }
+        private void ReceiveObject()
+        {
 
+        }
         private void HandleClientCommunication(object clientObj)
         {
             TcpClient client = (TcpClient)clientObj;
@@ -73,15 +76,7 @@ namespace Napelem_API.Connection
                             break;
                         }
 
-                        // Objektum küldése a kliensnek
-                        Models.Employee employee = new Models.Employee();
-                        employee.name = "Gergo";
-                        employee.employeeID = 1;
-                        employee.password = "password";
-                        employee.username = "username";
-                        employee.role = "admin";
-                        employee.objectType = "Employee";
-                        SendEmployee(stream,employee);
+                       
                         
                     }
                 }

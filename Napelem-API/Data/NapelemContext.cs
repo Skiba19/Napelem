@@ -15,6 +15,7 @@ namespace Napelem_API.Data
         public DbSet<Project> Projects { get; set; } = null!;
         public DbSet<Reservation> Reservations { get; set; } = null!;
         public DbSet<Storage> Storages { get; set; } = null!;
+        public DbSet<Component> Components { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
