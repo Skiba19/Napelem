@@ -140,3 +140,4 @@ D:\Egyetem\rendszerfejlesztes\Napelem-API\Napelem-API\bin\Debug\net6.0\runtimes\
 D:\Egyetem\rendszerfejlesztes\Napelem-API\Napelem-API\obj\Debug\net6.0\Napelem-API.csproj.CopyComplete
 D:\Egyetem\rendszerfejlesztes\Napelem-API\Napelem-API\obj\Debug\net6.0\Napelem-API.genruntimeconfig.cache
 D:\Egyetem\rendszerfejlesztes\Napelem-API\Napelem-API\obj\Debug\net6.0\ref\Napelem-API.dll
+D:\Egyetem\rendszerfejlesztes\Napelem-API\Napelem-API\bin\Debug\net6.0\Newtonsoft.Json.dll

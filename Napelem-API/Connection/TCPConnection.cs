@@ -1,8 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using Napelem_API.Models;
+using Newtonsoft.Json;
 
 namespace Napelem_API.Connection
 {
@@ -37,6 +40,13 @@ namespace Napelem_API.Connection
             }
         }
 
+        private void SendEmployee(NetworkStream stream,Employee employee)
+        {
+            string serializedObject = JsonConvert.SerializeObject(employee);
+            byte[] requestBuffer = Encoding.ASCII.GetBytes(serializedObject);
+            stream.Write(requestBuffer, 0, requestBuffer.Length);
+        }
+
         private void HandleClientCommunication(object clientObj)
         {
             TcpClient client = (TcpClient)clientObj;
@@ -62,6 +72,17 @@ namespace Napelem_API.Connection
                             client.Close();
                             break;
                         }
+
+                        // Objektum küldése a kliensnek
+                        Models.Employee employee = new Models.Employee();
+                        employee.name = "Gergo";
+                        employee.employeeID = 1;
+                        employee.password = "password";
+                        employee.username = "username";
+                        employee.role = "admin";
+                        employee.objectType = "Employee";
+                        SendEmployee(stream,employee);
+                        
                     }
                 }
                 catch (Exception ex)
@@ -76,6 +97,5 @@ namespace Napelem_API.Connection
 
             Console.WriteLine("Kapcsolat lezárva.");
         }
-
     }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "g8Tc26DrkFqmUTkSIyxtM53omRG3CZYR9VWpDNeVE5bys8HmnFYAQjdmph+bit3dfVNx2XgWhkgG8jltmiG5RQ==",
+  "dgSpecHash": "M1/VOWrs99OhNN74GizpYC5dIke5WNKgeGBBqLZkG2oLiwjyTCAzWlltEXjHowJRB7op70NoWChAulQieBfpvA==",
   "success": true,
   "projectFilePath": "D:\\Egyetem\\rendszerfejlesztes\\Napelem-API\\Napelem-API\\Napelem-API.csproj",
   "expectedPackageFiles": [
@@ -42,6 +42,7 @@
     "C:\\Users\\Gergo\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\Gergo\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\Gergo\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\Gergo\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Gergo\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Gergo\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\Gergo\\.nuget\\packages\\system.configuration.configurationmanager\\5.0.0\\system.configuration.configurationmanager.5.0.0.nupkg.sha512",
