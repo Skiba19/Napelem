@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Napelem_API.Data;
 
@@ -11,9 +12,11 @@ using Napelem_API.Data;
 namespace Napelem_API.Migrations
 {
     [DbContext(typeof(NapelemContext))]
-    partial class NapelemContextModelSnapshot : ModelSnapshot
+    [Migration("20230419210431_AddProjectDetails")]
+    partial class AddProjectDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,9 +108,6 @@ namespace Napelem_API.Migrations
                     b.Property<int>("employeeID")
                         .HasColumnType("int");
 
-                    b.Property<int>("estimated_Time")
-                        .HasColumnType("int");
-
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
@@ -125,9 +125,6 @@ namespace Napelem_API.Migrations
 
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("wage")
-                        .HasColumnType("int");
 
                     b.HasKey("projectID");
 

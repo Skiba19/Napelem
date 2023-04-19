@@ -3555,23 +3555,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Gergo\\.nuget\\packages\\": {},
+    "C:\\Users\\Skiba Gergő\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Egyetem\\rendszerfejlesztes\\Napelem-API\\Napelem-API\\Napelem-API.csproj",
+      "projectUniqueName": "S:\\Egyetem\\6.semester\\Rendszerfejlesztes\\Napelem\\Napelem-API\\Napelem-API\\Napelem-API.csproj",
       "projectName": "Napelem-API",
-      "projectPath": "D:\\Egyetem\\rendszerfejlesztes\\Napelem-API\\Napelem-API\\Napelem-API.csproj",
-      "packagesPath": "C:\\Users\\Gergo\\.nuget\\packages\\",
-      "outputPath": "D:\\Egyetem\\rendszerfejlesztes\\Napelem-API\\Napelem-API\\obj\\",
+      "projectPath": "S:\\Egyetem\\6.semester\\Rendszerfejlesztes\\Napelem\\Napelem-API\\Napelem-API\\Napelem-API.csproj",
+      "packagesPath": "C:\\Users\\Skiba Gergő\\.nuget\\packages\\",
+      "outputPath": "S:\\Egyetem\\6.semester\\Rendszerfejlesztes\\Napelem\\Napelem-API\\Napelem-API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Gergo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Skiba Gergő\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
