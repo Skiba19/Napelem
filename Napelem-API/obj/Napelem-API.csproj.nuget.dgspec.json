@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "S:\\Egyetem\\6.semester\\Rendszerfejlesztes\\namost\\Napelem-API\\Napelem-API.csproj": {}
+    "D:\\Egyetem\\6.felev\\Git\\Napelem-API\\Napelem-API\\Napelem-API.csproj": {}
   },
   "projects": {
-    "S:\\Egyetem\\6.semester\\Rendszerfejlesztes\\namost\\Napelem-API\\Napelem-API.csproj": {
+    "D:\\Egyetem\\6.felev\\Git\\Napelem-API\\Napelem-API\\Napelem-API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "S:\\Egyetem\\6.semester\\Rendszerfejlesztes\\namost\\Napelem-API\\Napelem-API.csproj",
+        "projectUniqueName": "D:\\Egyetem\\6.felev\\Git\\Napelem-API\\Napelem-API\\Napelem-API.csproj",
         "projectName": "Napelem-API",
-        "projectPath": "S:\\Egyetem\\6.semester\\Rendszerfejlesztes\\namost\\Napelem-API\\Napelem-API.csproj",
-        "packagesPath": "C:\\Users\\Skiba Gergő\\.nuget\\packages\\",
-        "outputPath": "S:\\Egyetem\\6.semester\\Rendszerfejlesztes\\namost\\Napelem-API\\obj\\",
+        "projectPath": "D:\\Egyetem\\6.felev\\Git\\Napelem-API\\Napelem-API\\Napelem-API.csproj",
+        "packagesPath": "C:\\Users\\Duzsik\\.nuget\\packages\\",
+        "outputPath": "D:\\Egyetem\\6.felev\\Git\\Napelem-API\\Napelem-API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Skiba Gergő\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Duzsik\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -75,8 +75,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -88,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

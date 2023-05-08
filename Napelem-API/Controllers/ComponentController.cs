@@ -41,7 +41,7 @@ namespace Napelem_API.Controllers
             using (var db = new NapelemContext())
             {
                 comp = db.Components.Where(c => c.componentID == comp.componentID).FirstOrDefault();
-                comp.price = newMaxQuantity;
+                comp.max_quantity = newMaxQuantity;
                 db.SaveChanges();
             }
             return new JsonResult(Ok(comp));
