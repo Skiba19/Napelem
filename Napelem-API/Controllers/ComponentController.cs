@@ -46,6 +46,19 @@ namespace Napelem_API.Controllers
             }
             return new JsonResult(Ok(comp));
         }
+        [HttpGet("SendComponent")]
+        public JsonResult SendComponent()
+        {
+            List<Component> components = new List<Component>();
+            using (var context = new NapelemContext())
+            {
+                foreach(var c in context.Components)
+                {
+                    components.Add(c);
+                }
+            }
+            return new JsonResult(Ok(components));
+        }
 
     }
 }

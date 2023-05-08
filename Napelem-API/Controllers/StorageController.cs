@@ -10,7 +10,7 @@ namespace Napelem_API.Controllers
     public class StorageController : ControllerBase
     {
         //Add Component
-        [HttpPost("AddComponentToStorage")]
+        /*[HttpPost("AddComponentToStorage")]
         public JsonResult AddComponentToStorage(Component component, Storage storage)
         {
             using (NapelemContext context = new NapelemContext())
@@ -20,6 +20,6 @@ namespace Napelem_API.Controllers
                 context.SaveChanges();
             }
             return new JsonResult(Ok(component));
-        }
+        }*/
     }
 }

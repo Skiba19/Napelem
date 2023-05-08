@@ -10,7 +10,7 @@ namespace Napelem_API.Controllers
     public class ProjectController : ControllerBase
     {
         //Add Component
-        [HttpPost("AddProject")]
+        /*[HttpPost("AddProject")]
         public JsonResult AddProject(Project project, Employee employee)
         {
             using (NapelemContext context = new NapelemContext())
@@ -20,6 +20,6 @@ namespace Napelem_API.Controllers
                 context.SaveChanges();
             }
             return new JsonResult(Ok(project));
-        }
+        }*/
     }
 }
