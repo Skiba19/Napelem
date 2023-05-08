@@ -15,8 +15,8 @@ namespace Napelem_API.Controllers
     public class ProjectController : ControllerBase
     {
         
-        [HttpPost("AddProject")]
-        public JsonResult AddProject(ProjectEmployee projectEmployee)
+        [HttpPost("AddReservation")]
+        public JsonResult AddReservation(ProjectEmployee projectEmployee)
         {
             using (NapelemContext context = new NapelemContext())
             {
@@ -36,6 +36,19 @@ namespace Napelem_API.Controllers
                 context.SaveChanges();
             }
             return new JsonResult(Ok(projectEmployee));
+        }
+        [HttpPost("ListProjects")]
+        public JsonResult ListProjects() 
+        {
+            List<Project> projects = new List<Project>();
+            using (var context = new NapelemContext())
+            {
+                foreach (var p in context.Projects)
+                {
+                    projects.Add(p);
+                }
+            }
+            return new JsonResult(Ok(projects));
         }
     }
 }
