@@ -33,7 +33,7 @@ namespace Napelem_API.Controllers
             }
             return new JsonResult(Ok(projectComponent));
         }
-        [HttpPost("ListReservation")]
+        [HttpGet("ListReservation")]
         public JsonResult ListReservation()
         {
             List<Reservation> reservation = new List<Reservation>();
