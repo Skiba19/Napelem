@@ -12,8 +12,8 @@ using Napelem_API.Data;
 namespace Napelem_API.Migrations
 {
     [DbContext(typeof(NapelemContext))]
-    [Migration("20230505230614_Datbase")]
-    partial class Datbase
+    [Migration("20230510204736_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,9 +59,6 @@ namespace Napelem_API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("employeeID"));
 
                     b.Property<string>("name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("objectType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("password")
@@ -111,7 +108,19 @@ namespace Napelem_API.Migrations
                     b.Property<int>("employeeID")
                         .HasColumnType("int");
 
+                    b.Property<int>("estimated_Time")
+                        .HasColumnType("int");
+
                     b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("project_description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("project_location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("project_orderer")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("project_price")
@@ -119,6 +128,9 @@ namespace Napelem_API.Migrations
 
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("wage")
+                        .HasColumnType("int");
 
                     b.HasKey("projectID");
 
@@ -137,6 +149,9 @@ namespace Napelem_API.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("projectID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("reservationQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("reservationID");

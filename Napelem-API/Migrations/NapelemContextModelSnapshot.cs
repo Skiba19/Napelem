@@ -148,6 +148,9 @@ namespace Napelem_API.Migrations
                     b.Property<int>("projectID")
                         .HasColumnType("int");
 
+                    b.Property<int>("reservationQuantity")
+                        .HasColumnType("int");
+
                     b.HasKey("reservationID");
 
                     b.ToTable("Reservations");

@@ -9,6 +9,7 @@ namespace Napelem_API.Controllers
     {
         public Project Project { get; set; }
         public Component Component { get; set; }
+        public int qty { get; set; }
     }
 
     [Route("api/[controller]")]
@@ -24,7 +25,8 @@ namespace Napelem_API.Controllers
                 Reservation reservation = new Reservation()
                 {
                     projectID = projectComponent.Project.projectID,
-                    componentID=projectComponent.Component.componentID
+                    componentID = projectComponent.Component.componentID,
+                    reservationQuantity = projectComponent.qty
                 };
                 context.Reservations.Add(reservation);
                 context.SaveChanges();

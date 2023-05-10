@@ -5,7 +5,7 @@
 namespace Napelem_API.Migrations
 {
     /// <inheritdoc />
-    public partial class Datbase : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,8 +35,7 @@ namespace Napelem_API.Migrations
                     name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    objectType = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,7 +66,12 @@ namespace Napelem_API.Migrations
                     employeeID = table.Column<int>(type: "int", nullable: false),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    project_price = table.Column<int>(type: "int", nullable: false)
+                    project_price = table.Column<int>(type: "int", nullable: false),
+                    project_location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    project_description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    project_orderer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    estimated_Time = table.Column<int>(type: "int", nullable: false),
+                    wage = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,7 +85,8 @@ namespace Napelem_API.Migrations
                     reservationID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     projectID = table.Column<int>(type: "int", nullable: false),
-                    componentID = table.Column<int>(type: "int", nullable: false)
+                    componentID = table.Column<int>(type: "int", nullable: false),
+                    reservationQuantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

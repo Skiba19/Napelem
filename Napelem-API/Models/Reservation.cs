@@ -13,5 +13,6 @@ namespace Napelem_API.Models
         public int reservationID { get; set; }
         public int projectID { get; set; }
         public int componentID { get; set; }
+        public int reservationQuantity { get; set; }
     }
 }

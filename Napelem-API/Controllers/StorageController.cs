@@ -26,11 +26,16 @@ namespace Napelem_API.Controllers
                     row=componentStorage.Storage.row,
                     column=componentStorage.Storage.column,
                     level = componentStorage.Storage.level
+                    
                 };
                 
                 context.Storages.Add(storage);
                 context.SaveChanges();
+                var comp = context.Components.Where(c => c.componentID == componentStorage.Component.componentID).FirstOrDefault();
+                comp.quantity = componentStorage.Component.quantity;
+                context.SaveChanges();
             }
+           
             return new JsonResult(Ok(componentStorage));
         }
     }

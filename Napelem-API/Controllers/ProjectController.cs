@@ -20,7 +20,7 @@ namespace Napelem_API.Controllers
             }
             return new JsonResult(Ok(project));
         }
-        [HttpPost("ListProjects")]
+        [HttpGet("ListProjects")]
         public JsonResult ListProjects() 
         {
             List<Project> projects = new List<Project>();
@@ -46,7 +46,7 @@ namespace Napelem_API.Controllers
                 return new JsonResult(Ok(pro));
         }
         //A7
-        [HttpPost("ProjectClosure")]
+        [HttpPost("ChangeStatus")]
         public JsonResult ProjectClosure(Project pro)
         {
             using (var db = new NapelemContext())
