@@ -50,5 +50,17 @@ namespace Napelem_API.Controllers
             }
             return new JsonResult(Ok(projects));
         }
+        [HttpPost("SetTimeAndWage")]
+        public JsonResult SetTimeAndWage(Project pro)
+        {
+            using (var db = new NapelemContext())
+            {
+                var project = db.Projects.Where(p => p.projectID == pro.projectID).FirstOrDefault();
+                project.estimated_Time = pro.estimated_Time;
+                project.wage = pro.wage;
+                db.SaveChanges();
+            }
+                return new JsonResult(Ok(pro));
+        }
     }
 }
