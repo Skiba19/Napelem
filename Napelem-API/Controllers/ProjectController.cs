@@ -5,37 +5,20 @@ using Napelem_API.Models;
 
 namespace Napelem_API.Controllers
 {
-    public class ProjectEmployee
-    {
-        public Project Project { get; set; }
-        public Employee Employee { get; set; }
-    }
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectController : ControllerBase
     {
         
-        [HttpPost("AddReservation")]
-        public JsonResult AddReservation(ProjectEmployee projectEmployee)
+        [HttpPost("AddProject")]
+        public JsonResult AddProject(Project project)
         {
             using (NapelemContext context = new NapelemContext())
             {
-                Project project = new Project()
-                {
-                    employeeID = projectEmployee.Employee.employeeID,
-                    name = projectEmployee.Project.name,
-                    status = projectEmployee.Project.name,
-                    project_price = projectEmployee.Project.project_price,
-                    project_location = projectEmployee.Project.project_location,
-                    project_description = projectEmployee.Project.project_description,
-                    project_orderer = projectEmployee.Project.project_orderer,
-                    estimated_Time = projectEmployee.Project.estimated_Time,
-                    wage = projectEmployee.Project.wage
-                };
                 context.Projects.Add(project);
                 context.SaveChanges();
             }
-            return new JsonResult(Ok(projectEmployee));
+            return new JsonResult(Ok(project));
         }
         [HttpPost("ListProjects")]
         public JsonResult ListProjects() 
@@ -61,6 +44,18 @@ namespace Napelem_API.Controllers
                 db.SaveChanges();
             }
                 return new JsonResult(Ok(pro));
+        }
+        //A7
+        [HttpPost("ProjectClosure")]
+        public JsonResult ProjectClosure(Project pro)
+        {
+            using (var db = new NapelemContext())
+            {
+                var project = db.Projects.Where(p => p.projectID == pro.projectID).FirstOrDefault();
+                project.status=pro.status;
+                db.SaveChanges();
+            }
+            return new JsonResult(Ok(pro));
         }
     }
 }
