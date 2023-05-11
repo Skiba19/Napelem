@@ -14,8 +14,29 @@ namespace Napelem_API.Controllers
     [ApiController]
     public class StorageController : ControllerBase
     {
-        //Add Component
-        [HttpPost("AddComponentToStorage")]
+
+        [HttpGet("GetStorage")]
+        public JsonResult Get(string componentID)
+        {
+            using (NapelemContext context = new NapelemContext())
+            {
+
+
+
+                //Login button
+                foreach (Storage s in context.Storages)
+                {
+                    if (s.componentID == int.Parse(componentID) )
+                    {
+                        return new JsonResult(s);
+                    }
+                    //ehelyett kell elküldeni az "Acess Denied"-t
+                }
+                return null;
+            }
+        }
+                //Add Component
+                [HttpPost("AddComponentToStorage")]
         public JsonResult AddComponentToStorage(ComponentStorage componentStorage)
         {
             using (NapelemContext context = new NapelemContext())
