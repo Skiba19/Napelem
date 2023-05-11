@@ -9,7 +9,7 @@ namespace Napelem_API.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-        
+
         [HttpPost("AddProject")]
         public JsonResult AddProject(Project project)
         {
@@ -21,7 +21,7 @@ namespace Napelem_API.Controllers
             return new JsonResult(Ok(project));
         }
         [HttpGet("ListProjects")]
-        public JsonResult ListProjects() 
+        public JsonResult ListProjects()
         {
             List<Project> projects = new List<Project>();
             using (var context = new NapelemContext())
@@ -43,7 +43,7 @@ namespace Napelem_API.Controllers
                 project.wage = pro.wage;
                 db.SaveChanges();
             }
-                return new JsonResult(Ok(pro));
+            return new JsonResult(Ok(pro));
         }
         //A7
         [HttpPost("ChangeStatus")]
@@ -52,10 +52,30 @@ namespace Napelem_API.Controllers
             using (var db = new NapelemContext())
             {
                 var project = db.Projects.Where(p => p.projectID == pro.projectID).FirstOrDefault();
-                project.status=pro.status;
+                project.status = pro.status;
                 db.SaveChanges();
             }
             return new JsonResult(Ok(pro));
+        }
+        [HttpGet]
+        public JsonResult Get(string projectID)
+        {
+            using (NapelemContext context = new NapelemContext())
+            {
+
+
+
+                //Login button
+                foreach (Project p in context.Projects)
+                {
+                    if (p.projectID == int.Parse(projectID))
+                    {
+                        return new JsonResult(p);
+                    }
+                    //ehelyett kell elküldeni az "Acess Denied"-t
+                }
+                return null;
+            }
         }
     }
 }
