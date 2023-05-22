@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "P+C8rP3AHg0gWCXw+XbpTOiffKvzMHSxUPdWAe7KbjTqH2Z1M2fHBnnPjs0NFU25l39PDk2OuEw8MtakSpLhuQ==",
+  "dgSpecHash": "HLT+2/TncHlLnlveBZtXOCLEtQueNi3Um//4uMw3+P2/cT+cqSoy/GT0h8MttngaTjBw8lfbcvWWlggJPKzFwQ==",
   "success": true,
-  "projectFilePath": "D:\\Egyetem\\rendszerfejlesztes\\Napelem-API\\Napelem-API\\Napelem-API.csproj",
+  "projectFilePath": "C:\\!Suli\\Rendszerfejlesztes\\Napelem-API\\Napelem-API\\Napelem-API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gergo\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Gergo\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

@@ -11,40 +11,78 @@ namespace Napelem_API.Controllers
     {
         //Add Component
         [HttpPost("AddComponent")]
-        public JsonResult AddComponent(Component component)
+        public IActionResult AddComponent(Component component)
         {
-
-            using (NapelemContext context = new NapelemContext())
-            {
-                context.Components.Add(component);
-                context.SaveChanges();
+            if (!IsComponentExistsByName(component)) {
+                using (NapelemContext context = new NapelemContext())
+                {
+                    context.Components.Add(component);
+                    context.SaveChanges();
+                }
+                return new JsonResult(Ok(component));
             }
-            return new JsonResult(Ok(component));
+            return Conflict("Component already exists.");
+
+        }
+
+        private bool IsComponentExistsByName(Component comp)
+        {
+            using(var context = new NapelemContext())
+            {
+                foreach (var component in context.Components)
+                {
+                    if (component.name == comp.name)
+                        return true;
+                }
+            }
+            return false;
+        }
+        private bool IsComponentExistsByID(Component comp)
+        {
+            using(var context = new NapelemContext())
+            {
+                foreach (var component in context.Components)
+                {
+                    if (component.componentID == comp.componentID)
+                        return true;
+                }
+            }
+            return false;
         }
         //Change price
         [HttpPost("ChangePrice")]
-        public JsonResult ChangePrice(Component comp)
+        public IActionResult ChangePrice(Component comp)
         {
-            int newPrice = (int)comp.price;
-            using (var db = new NapelemContext())
+            if (IsComponentExistsByID(comp))
             {
-                comp = db.Components.Where(c => c.componentID == comp.componentID).FirstOrDefault();
-                comp.price = newPrice;
-                db.SaveChanges();
+                int newPrice = (int)comp.price;
+                using (var db = new NapelemContext())
+                {
+                    comp = db.Components.Where(c => c.componentID == comp.componentID).FirstOrDefault();
+                    comp.price = newPrice;
+                    db.SaveChanges();
+                }
+                return new JsonResult(Ok(comp));
             }
-            return new JsonResult(Ok(comp));
+            return Conflict("Component does not exists.");
+
         }
         [HttpPost("ChangeMaxQuantity")]
-        public JsonResult ChangeMaxQuantity(Component comp)
+        public IActionResult ChangeMaxQuantity(Component comp)
         {
-            int newMaxQuantity = (int)comp.max_quantity;
-            using (var db = new NapelemContext())
+            if (IsComponentExistsByID(comp))
             {
-                comp = db.Components.Where(c => c.componentID == comp.componentID).FirstOrDefault();
-                comp.max_quantity = newMaxQuantity;
-                db.SaveChanges();
+                int newMaxQuantity = (int)comp.max_quantity;
+                using (var db = new NapelemContext())
+                {
+                    comp = db.Components.Where(c => c.componentID == comp.componentID).FirstOrDefault();
+                    comp.max_quantity = newMaxQuantity;
+                    db.SaveChanges();
+                }
+                return new JsonResult(Ok(comp));
             }
-            return new JsonResult(Ok(comp));
+            return Conflict("Component does not exists.");
+
         }
         [HttpGet("SendComponent")]
         public JsonResult SendComponent()

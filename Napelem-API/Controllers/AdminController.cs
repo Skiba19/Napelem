@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Napelem_API.Data;
 using Napelem_API.Models;
+using System.Net;
+
+
 
 namespace Napelem_API.Controllers
 {
@@ -10,15 +13,34 @@ namespace Napelem_API.Controllers
     public class AdminController : ControllerBase
     {
         [HttpPost]
-        public JsonResult CreateEdit(Employee employee)
+        public IActionResult CreateEdit(Employee employee)
         {
-           
-            using (NapelemContext context = new NapelemContext())
+            if (!IsUserExists(employee))
             {
-                context.Employees.Add(employee);
-                context.SaveChanges();
+                using (NapelemContext context = new NapelemContext())
+                {
+                    context.Employees.Add(employee);
+                    context.SaveChanges();
+                }
+                return new JsonResult(Ok(employee));
             }
-            return new JsonResult(Ok(employee));
+            return Conflict("User already exists.");
+
+        }
+
+        private bool IsUserExists(Employee emp) {
+
+            using (var context = new NapelemContext())
+            {
+                foreach (var employee in context.Employees)
+                {
+                    if (employee.name == emp.name)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

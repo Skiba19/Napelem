@@ -17,9 +17,6 @@ namespace Napelem_API.Controllers
         {
             using (NapelemContext context = new NapelemContext())
             {
-
-                
-
                 //Login button
                 foreach (Employee e in context.Employees)
                 {
@@ -27,41 +24,8 @@ namespace Napelem_API.Controllers
                     {
                         return new JsonResult(e);
                     }
-                    //ehelyett kell elküldeni az "Acess Denied"-t
                 }
                 return null;
-                /*
-                //Send Componens
-                foreach (Component c in context.Components)
-                {
-                    Console.WriteLine(c.componentID.ToString(), c.name, c.quantity, c.max_quantity, c.price);
-                    //itt el kell küldeni ezeket az adatokat
-                }
-                //Add new item button
-                {
-                    string name = "test";//egyenlővé kell tenni a kapott értékkel
-                    int price = 0, maxQuantity = 0;//ugyszintén (csak a maxQuantityt)
-                    Component item = new Component()
-                    {
-                        name = name,
-                        price = price,
-                        quantity = 0,
-                        max_quantity = maxQuantity
-                    };
-                    context.Components.Add(item);
-                    context.SaveChanges();
-                }
-                //Change price
-                {
-                    int id = 1, newPrice = 600;//itt kapja meg az id-t és az új árat
-                    using (var db = new NapelemContext())
-                    {
-                        var component = db.Components.Where(c => c.componentID == id).FirstOrDefault();
-                        component.price = newPrice;
-                        db.SaveChanges();
-                    }
-                }*/
-
             }
             
         }
