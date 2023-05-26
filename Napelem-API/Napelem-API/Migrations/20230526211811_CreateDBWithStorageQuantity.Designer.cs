@@ -12,8 +12,8 @@ using Napelem_API.Data;
 namespace Napelem_API.Migrations
 {
     [DbContext(typeof(NapelemContext))]
-    [Migration("20230522185758_Database")]
-    partial class Database
+    [Migration("20230526211811_CreateDBWithStorageQuantity")]
+    partial class CreateDBWithStorageQuantity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -174,6 +174,9 @@ namespace Napelem_API.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("level")
+                        .HasColumnType("int");
+
+                    b.Property<int>("quantity")
                         .HasColumnType("int");
 
                     b.Property<int>("row")

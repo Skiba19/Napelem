@@ -5,7 +5,7 @@
 namespace Napelem_API.Migrations
 {
     /// <inheritdoc />
-    public partial class Database : Migration
+    public partial class CreateDBWithStorageQuantity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -102,7 +102,8 @@ namespace Napelem_API.Migrations
                     componentID = table.Column<int>(type: "int", nullable: false),
                     row = table.Column<int>(type: "int", nullable: false),
                     column = table.Column<int>(type: "int", nullable: false),
-                    level = table.Column<int>(type: "int", nullable: false)
+                    level = table.Column<int>(type: "int", nullable: false),
+                    quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

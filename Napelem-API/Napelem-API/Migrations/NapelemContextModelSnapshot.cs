@@ -44,7 +44,7 @@ namespace Napelem_API.Migrations
 
                     b.HasKey("componentID");
 
-                    b.ToTable("Components", (string)null);
+                    b.ToTable("Components");
                 });
 
             modelBuilder.Entity("Napelem_API.Models.Employee", b =>
@@ -69,7 +69,7 @@ namespace Napelem_API.Migrations
 
                     b.HasKey("employeeID");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Napelem_API.Models.Log", b =>
@@ -91,7 +91,7 @@ namespace Napelem_API.Migrations
 
                     b.HasKey("logID");
 
-                    b.ToTable("Log", (string)null);
+                    b.ToTable("Log");
                 });
 
             modelBuilder.Entity("Napelem_API.Models.Project", b =>
@@ -131,7 +131,7 @@ namespace Napelem_API.Migrations
 
                     b.HasKey("projectID");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Napelem_API.Models.Reservation", b =>
@@ -153,7 +153,7 @@ namespace Napelem_API.Migrations
 
                     b.HasKey("reservationID");
 
-                    b.ToTable("Reservations", (string)null);
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("Napelem_API.Models.Storage", b =>
@@ -173,12 +173,15 @@ namespace Napelem_API.Migrations
                     b.Property<int>("level")
                         .HasColumnType("int");
 
+                    b.Property<int>("quantity")
+                        .HasColumnType("int");
+
                     b.Property<int>("row")
                         .HasColumnType("int");
 
                     b.HasKey("storageID");
 
-                    b.ToTable("Storages", (string)null);
+                    b.ToTable("Storages");
                 });
 #pragma warning restore 612, 618
         }
