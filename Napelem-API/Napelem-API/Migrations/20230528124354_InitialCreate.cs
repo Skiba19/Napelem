@@ -5,7 +5,7 @@
 namespace Napelem_API.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateDBWithStorageQuantity : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,6 @@ namespace Napelem_API.Migrations
                     componentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    quantity = table.Column<int>(type: "int", nullable: true),
                     max_quantity = table.Column<int>(type: "int", nullable: true),
                     price = table.Column<int>(type: "int", nullable: true)
                 },

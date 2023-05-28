@@ -3,7 +3,7 @@ using Napelem_API.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-/*using (var db=new NapelemContext())
+using (var db=new NapelemContext())
 {
     Employee e = new Employee()
     {
@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
     };
     db.Add(e);
     db.SaveChanges();
-}*/
+}
     // Add services to the container.
 
     builder.Services.AddControllers();

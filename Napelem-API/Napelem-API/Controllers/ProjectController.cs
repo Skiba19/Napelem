@@ -62,9 +62,6 @@ namespace Napelem_API.Controllers
         {
             using (NapelemContext context = new NapelemContext())
             {
-
-
-
                 //Login button
                 foreach (Project p in context.Projects)
                 {

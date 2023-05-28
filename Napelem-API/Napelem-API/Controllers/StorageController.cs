@@ -20,9 +20,6 @@ namespace Napelem_API.Controllers
         {
             using (NapelemContext context = new NapelemContext())
             {
-
-
-
                 //Login button
                 foreach (Storage s in context.Storages)
                 {
@@ -46,8 +43,8 @@ namespace Napelem_API.Controllers
                     componentID = componentStorage.Component.componentID,
                     row=componentStorage.Storage.row,
                     column=componentStorage.Storage.column,
-                    level = componentStorage.Storage.level
-                    
+                    level = componentStorage.Storage.level,
+                    quantity=componentStorage.Storage.quantity
                 };
                 if (IsComponentFit(componentStorage))
                 {
@@ -61,16 +58,12 @@ namespace Napelem_API.Controllers
                         stor = context.Storages.Where(s => s.componentID == storage.componentID).FirstOrDefault();
                         stor.quantity = stor.quantity+storage.quantity;
                         context.SaveChanges();
+                        return new JsonResult(Ok(componentStorage));
                     }
                     context.Storages.Add(storage);
                     context.SaveChanges();
-                    var comp = context.Components.Where(c => c.componentID == componentStorage.Component.componentID).FirstOrDefault();
-                    comp.quantity = componentStorage.Component.quantity;
-                    context.SaveChanges();
                     return new JsonResult(Ok(componentStorage));
-
                 }
-                
             }
             return Conflict("There is already another compononent in this storage!");
 
@@ -83,7 +76,6 @@ namespace Napelem_API.Controllers
                 Storage storage = componentStorage.Storage;
                 Component component = componentStorage.Component;
                 bool isTableEmpty = !context.Storages.Any();
-
                 if (isTableEmpty)
                 {
                     return true;
@@ -94,16 +86,15 @@ namespace Napelem_API.Controllers
                     {
                         if (s.level == storage.level && s.row == storage.row && s.column == storage.column)
                         {
-                            if (s.componentID == null || s.componentID == component.componentID)
+                            if (s.componentID != component.componentID)
                             {
-                                return true;
+                                return false;
                             }
                         }
                     }
                 }
-
             }
-            return false;
+            return true;
         }
 
         private bool IsQuantityGreaterThenMax(ComponentStorage componentStorage)
@@ -111,10 +102,15 @@ namespace Napelem_API.Controllers
             using (NapelemContext context = new NapelemContext())
             {
                 Storage storage = componentStorage.Storage;
-                Component component = componentStorage.Component;
+                Component comp = componentStorage.Component;
                 Storage stor;
-                stor = context.Storages.Where(s => s.componentID == component.componentID).FirstOrDefault();                
-                if(stor.quantity+component.quantity > component.max_quantity)
+                stor = context.Storages.Where(s =>s.componentID == comp.componentID).FirstOrDefault();
+                comp = context.Components.Where(c => c.componentID == comp.componentID).FirstOrDefault();
+                if (stor == null)
+                {
+                    return false;
+                }
+                if(stor.quantity+storage.quantity > comp.max_quantity)
                 {
                     return true;
                 }
@@ -125,6 +121,7 @@ namespace Napelem_API.Controllers
         {
             using (NapelemContext context = new NapelemContext())
             {
+
                 foreach (Storage s in context.Storages)
                 {
                     if(s.level==componentStorage.Storage.level && s.row == componentStorage.Storage.row

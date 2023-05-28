@@ -39,9 +39,6 @@ namespace Napelem_API.Migrations
                     b.Property<int?>("price")
                         .HasColumnType("int");
 
-                    b.Property<int?>("quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("componentID");
 
                     b.ToTable("Components");

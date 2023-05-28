@@ -12,8 +12,8 @@ using Napelem_API.Data;
 namespace Napelem_API.Migrations
 {
     [DbContext(typeof(NapelemContext))]
-    [Migration("20230526211811_CreateDBWithStorageQuantity")]
-    partial class CreateDBWithStorageQuantity
+    [Migration("20230528124354_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,9 +40,6 @@ namespace Napelem_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("price")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("quantity")
                         .HasColumnType("int");
 
                     b.HasKey("componentID");
