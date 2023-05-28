@@ -38,13 +38,14 @@ namespace Napelem_API.Controllers
         {
             using (NapelemContext context = new NapelemContext())
             {
+                Component comp;
                 Storage storage = new Storage
                 {
                     componentID = componentStorage.Component.componentID,
                     row=componentStorage.Storage.row,
                     column=componentStorage.Storage.column,
                     level = componentStorage.Storage.level,
-                    quantity=componentStorage.Storage.quantity
+                    current_quantity=componentStorage.Storage.current_quantity
                 };
                 if (IsComponentFit(componentStorage))
                 {
@@ -55,12 +56,16 @@ namespace Napelem_API.Controllers
                     if(IsStorageExist(componentStorage))
                     {
                         Storage stor;
-                        stor = context.Storages.Where(s => s.componentID == storage.componentID).FirstOrDefault();
-                        stor.quantity = stor.quantity+storage.quantity;
+                        stor = context.Storages.Where(s =>s.componentID == storage.componentID && s.column == storage.column && s.row == storage.row && s.level == storage.level).FirstOrDefault();
+                        stor.current_quantity = stor.current_quantity + storage.current_quantity;
+                        comp = context.Components.Where(c => c.componentID == storage.componentID).FirstOrDefault();
+                        comp.quantity += storage.current_quantity;
                         context.SaveChanges();
                         return new JsonResult(Ok(componentStorage));
-                    }
+                    }         
                     context.Storages.Add(storage);
+                    comp = context.Components.Where(c => c.componentID == storage.componentID).FirstOrDefault();
+                    comp.quantity += storage.current_quantity;
                     context.SaveChanges();
                     return new JsonResult(Ok(componentStorage));
                 }
@@ -104,13 +109,13 @@ namespace Napelem_API.Controllers
                 Storage storage = componentStorage.Storage;
                 Component comp = componentStorage.Component;
                 Storage stor;
-                stor = context.Storages.Where(s =>s.componentID == comp.componentID).FirstOrDefault();
+                stor = context.Storages.Where(s =>s.componentID == comp.componentID && s.column == storage.column && s.row == storage.row && s.level == storage.level).FirstOrDefault();
                 comp = context.Components.Where(c => c.componentID == comp.componentID).FirstOrDefault();
                 if (stor == null)
                 {
                     return false;
                 }
-                if(stor.quantity+storage.quantity > comp.max_quantity)
+                if(stor.current_quantity + storage.current_quantity > comp.max_quantity)
                 {
                     return true;
                 }

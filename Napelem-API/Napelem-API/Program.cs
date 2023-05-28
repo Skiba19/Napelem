@@ -3,7 +3,7 @@ using Napelem_API.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-using (var db=new NapelemContext())
+/*using (var db=new NapelemContext())
 {
     Employee e = new Employee()
     {
@@ -15,8 +15,9 @@ using (var db=new NapelemContext())
     };
     db.Add(e);
     db.SaveChanges();
-}
+}*/
     // Add services to the container.
+
 
     builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
