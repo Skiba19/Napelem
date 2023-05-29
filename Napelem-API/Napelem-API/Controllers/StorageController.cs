@@ -138,5 +138,46 @@ namespace Napelem_API.Controllers
             }
             return false;
         }
+        [HttpGet("ListStorages")]
+        public JsonResult ListStorages()
+        {
+            List<Storage> storages = new List<Storage>();
+            using (var context = new NapelemContext())
+            {
+                foreach (var s in context.Storages)
+                {
+                    storages.Add(s);
+                }
+            }
+            return new JsonResult(Ok(storages));
+        }
+        private bool IsComponentExistsByID(Storage stor)
+        {
+            using (var context = new NapelemContext())
+            {
+                foreach (var storage in context.Storages)
+                {
+                    if (storage.componentID == stor.componentID)
+                        return true;
+                }
+            }
+            return false;
+        }
+        [HttpPost("ChangeCurrent_quantity")]
+        public IActionResult ChangeCurrent_quantity(Storage stor)
+        {
+            if (IsComponentExistsByID(stor))
+            {
+                using (var db = new NapelemContext())
+                {
+                    var storage = db.Storages.Where(s => s.storageID == stor.storageID).FirstOrDefault();
+                    storage.current_quantity = stor.current_quantity;
+                    db.SaveChanges();
+                }
+                return new JsonResult(Ok(stor));
+            }
+            return Conflict("Component does not exists.");
+        }
+
     }
 }

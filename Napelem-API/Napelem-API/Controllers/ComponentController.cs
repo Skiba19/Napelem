@@ -13,7 +13,8 @@ namespace Napelem_API.Controllers
         [HttpPost("AddComponent")]
         public IActionResult AddComponent(Component component)
         {
-            if (!IsComponentExistsByName(component)) {
+            if (!IsComponentExistsByName(component))
+            {
                 using (NapelemContext context = new NapelemContext())
                 {
                     context.Components.Add(component);
@@ -27,7 +28,7 @@ namespace Napelem_API.Controllers
 
         private bool IsComponentExistsByName(Component comp)
         {
-            using(var context = new NapelemContext())
+            using (var context = new NapelemContext())
             {
                 foreach (var component in context.Components)
                 {
@@ -39,7 +40,7 @@ namespace Napelem_API.Controllers
         }
         private bool IsComponentExistsByID(Component comp)
         {
-            using(var context = new NapelemContext())
+            using (var context = new NapelemContext())
             {
                 foreach (var component in context.Components)
                 {
@@ -90,13 +91,28 @@ namespace Napelem_API.Controllers
             List<Component> components = new List<Component>();
             using (var context = new NapelemContext())
             {
-                foreach(var c in context.Components)
+                foreach (var c in context.Components)
                 {
                     components.Add(c);
                 }
             }
             return new JsonResult(Ok(components));
         }
-
+        [HttpPost("ChangeQuantity")]
+        public IActionResult ChangeQuantity(Component comp)
+        {
+            if (IsComponentExistsByID(comp))
+            {
+                int newQuantity = (int)comp.quantity;
+                using (var db = new NapelemContext())
+                {
+                    comp = db.Components.Where(c => c.componentID == comp.componentID).FirstOrDefault();
+                    comp.quantity = newQuantity;
+                    db.SaveChanges();
+                }
+                return new JsonResult(Ok(comp));
+            }
+            return Conflict("Component does not exists.");
+        }
     }
 }

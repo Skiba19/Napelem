@@ -16,10 +16,41 @@ var builder = WebApplication.CreateBuilder(args);
     db.Add(e);
     db.SaveChanges();
 }*/
-    // Add services to the container.
+// Add services to the container.
 
+/*using (var db = new NapelemContext())
+{
+    Storage s = new Storage()
+    {
+        storageID = 7,
+        componentID = 3,
+        row = 1,
+        column = 1,
+        level = 1,
+        current_quantity = 20
 
-    builder.Services.AddControllers();
+    };
+    db.Storages.Attach(s);
+    db.Storages.Remove(s);
+    db.SaveChanges();
+}*/
+/*using (var db = new NapelemContext())
+{
+    Component c = new Component()
+    {
+        componentID = 8,
+        name="cso",
+        max_quantity=20,
+        price=30,
+        quantity=20,
+
+    };
+    db.Components.Attach(c);
+    db.Components.Remove(c);
+    db.SaveChanges();
+}*/
+
+builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

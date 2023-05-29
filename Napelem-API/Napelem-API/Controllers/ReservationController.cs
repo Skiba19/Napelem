@@ -46,5 +46,17 @@ namespace Napelem_API.Controllers
             }
             return new JsonResult(Ok(reservation));
         }
+        [HttpPost("ChangeReservation_quantity")]
+        public IActionResult ChangeReservation_quantity(Reservation res)
+        {
+                using (var db = new NapelemContext())
+                {
+                    var reservataion = db.Reservations.Where(r => r.componentID == res.componentID).FirstOrDefault();
+                    reservataion.reservationQuantity = res.reservationQuantity;
+                    db.SaveChanges();
+                }
+                return new JsonResult(Ok(res));
+         
+        }
     }
 }
