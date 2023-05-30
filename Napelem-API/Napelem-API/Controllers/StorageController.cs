@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Napelem_API.Data;
 using Napelem_API.Models;
 
@@ -12,8 +13,8 @@ namespace Napelem_API.Controllers
     }
     public class ReservationsAndProjectId
     {
-        public List<Reservation> resers;
-        public int projectId;
+        public List<Reservation> resers { get; set; }
+        public int projectId { get; set; }
     }
     [Route("api/[controller]")]
     [ApiController]
@@ -217,6 +218,26 @@ namespace Napelem_API.Controllers
         [HttpPost("ChangeStorage")]
         public JsonResult ChangeStorage(ReservationsAndProjectId reservations)
         {
+            
+            using (var context = new NapelemContext())
+            {
+                
+                foreach(var res in reservations.resers)
+                {
+                    var result = context.Components.Where(c => c.componentID == res.componentID).FirstOrDefault();
+                    if (result != null)
+                    {
+                        if (res.componentID == result.componentID)
+                        {
+                            result.quantity -= res.reservationQuantity;
+                        }
+                    }
+                    
+                }
+                context.SaveChanges();
+                
+            }
+            
 
             for (int i = 0; i < reservations.resers.Count; i++)
             {
@@ -233,7 +254,7 @@ namespace Napelem_API.Controllers
                                     if (IsComponentExistsByID(s) == true && reservations.resers[i].componentID == s.componentID)
                                     {
 
-                                        if (s.current_quantity - reservations.resers[i].reservationQuantity < 0)
+                                        if (s.current_quantity - reservations.resers[i].reservationQuantity <= 0)
                                         {
                                             reservations.resers[i].reservationQuantity -= s.current_quantity;
                                             s.current_quantity -= s.current_quantity;
@@ -254,21 +275,15 @@ namespace Napelem_API.Controllers
                                     }
                                 }
                             }
+                            
                             context.SaveChanges();
                         }
-                        int sum = 0;
-                        var storages = context.Storages.Where(s => s.componentID == reservations.resers[i].componentID).ToList();
-                        foreach (var s in storages)
-                        {
-                            sum += s.current_quantity;
-                        }
-                        var component = context.Components.Where(c => c.componentID == storages[0].componentID).FirstOrDefault();
-                        component.quantity = sum;
                         var reservation = context.Reservations.Where(r => r.reservationID == reservations.resers[i].reservationID).FirstOrDefault();
                         context.Reservations.Attach(reservation);
                         context.Reservations.Remove(reservation);
+                        context.SaveChanges(); 
+
                     }
-                    context.SaveChanges();
                 }
             }
             return new JsonResult(Ok(reservations));

@@ -12,8 +12,8 @@ using Napelem_API.Data;
 namespace Napelem_API.Migrations
 {
     [DbContext(typeof(NapelemContext))]
-    [Migration("20230528175332_changes")]
-    partial class changes
+    [Migration("20230530164500_Database")]
+    partial class Database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

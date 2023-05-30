@@ -74,6 +74,22 @@ namespace Napelem_API.Controllers
                 }
                 return null;
             }
+        }  
+        [HttpGet]
+        public JsonResult ProjectByID(int projectID)
+        {
+            using (NapelemContext context = new NapelemContext())
+            {
+                foreach (Project p in context.Projects)
+                {
+                    if (p.projectID == projectID)
+                    {
+                            return new JsonResult(p);
+                     
+                    }
+                }
+                return null;
+            }
         }
         
         private bool StatusCheck(int proId) 

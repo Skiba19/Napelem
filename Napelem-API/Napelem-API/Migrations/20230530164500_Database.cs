@@ -5,7 +5,7 @@
 namespace Napelem_API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Database : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,8 @@ namespace Napelem_API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     max_quantity = table.Column<int>(type: "int", nullable: true),
-                    price = table.Column<int>(type: "int", nullable: true)
+                    price = table.Column<int>(type: "int", nullable: true),
+                    quantity = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -102,7 +103,7 @@ namespace Napelem_API.Migrations
                     row = table.Column<int>(type: "int", nullable: false),
                     column = table.Column<int>(type: "int", nullable: false),
                     level = table.Column<int>(type: "int", nullable: false),
-                    quantity = table.Column<int>(type: "int", nullable: false)
+                    current_quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
