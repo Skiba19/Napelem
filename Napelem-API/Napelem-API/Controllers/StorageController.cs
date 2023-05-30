@@ -10,6 +10,11 @@ namespace Napelem_API.Controllers
         public Component Component { get; set; }
         public Storage Storage { get; set; }
     }
+    public class ReservationsAndProjectId
+    {
+        public List<Reservation> resers;
+        public int projectId;
+    }
     [Route("api/[controller]")]
     [ApiController]
     public class StorageController : ControllerBase
@@ -23,7 +28,7 @@ namespace Napelem_API.Controllers
                 //Login button
                 foreach (Storage s in context.Storages)
                 {
-                    if (s.componentID == int.Parse(componentID) )
+                    if (s.componentID == int.Parse(componentID))
                     {
                         return new JsonResult(s);
                     }
@@ -42,10 +47,10 @@ namespace Napelem_API.Controllers
                 Storage storage = new Storage
                 {
                     componentID = componentStorage.Component.componentID,
-                    row=componentStorage.Storage.row,
-                    column=componentStorage.Storage.column,
+                    row = componentStorage.Storage.row,
+                    column = componentStorage.Storage.column,
                     level = componentStorage.Storage.level,
-                    current_quantity=componentStorage.Storage.current_quantity
+                    current_quantity = componentStorage.Storage.current_quantity
                 };
                 if (IsComponentFit(componentStorage))
                 {
@@ -53,16 +58,16 @@ namespace Napelem_API.Controllers
                     {
                         return Conflict("The quantity of the component dosen't fit in this storage!");
                     }
-                    if(IsStorageExist(componentStorage))
+                    if (IsStorageExist(componentStorage))
                     {
                         Storage stor;
-                        stor = context.Storages.Where(s =>s.componentID == storage.componentID && s.column == storage.column && s.row == storage.row && s.level == storage.level).FirstOrDefault();
+                        stor = context.Storages.Where(s => s.componentID == storage.componentID && s.column == storage.column && s.row == storage.row && s.level == storage.level).FirstOrDefault();
                         stor.current_quantity = stor.current_quantity + storage.current_quantity;
                         comp = context.Components.Where(c => c.componentID == storage.componentID).FirstOrDefault();
                         comp.quantity += storage.current_quantity;
                         context.SaveChanges();
                         return new JsonResult(Ok(componentStorage));
-                    }         
+                    }
                     context.Storages.Add(storage);
                     comp = context.Components.Where(c => c.componentID == storage.componentID).FirstOrDefault();
                     comp.quantity += storage.current_quantity;
@@ -109,13 +114,13 @@ namespace Napelem_API.Controllers
                 Storage storage = componentStorage.Storage;
                 Component comp = componentStorage.Component;
                 Storage stor;
-                stor = context.Storages.Where(s =>s.componentID == comp.componentID && s.column == storage.column && s.row == storage.row && s.level == storage.level).FirstOrDefault();
+                stor = context.Storages.Where(s => s.componentID == comp.componentID && s.column == storage.column && s.row == storage.row && s.level == storage.level).FirstOrDefault();
                 comp = context.Components.Where(c => c.componentID == comp.componentID).FirstOrDefault();
                 if (stor == null)
                 {
                     return false;
                 }
-                if(stor.current_quantity + storage.current_quantity > comp.max_quantity)
+                if (stor.current_quantity + storage.current_quantity > comp.max_quantity)
                 {
                     return true;
                 }
@@ -129,7 +134,7 @@ namespace Napelem_API.Controllers
 
                 foreach (Storage s in context.Storages)
                 {
-                    if(s.level==componentStorage.Storage.level && s.row == componentStorage.Storage.row
+                    if (s.level == componentStorage.Storage.level && s.row == componentStorage.Storage.row
                         && s.column == componentStorage.Storage.column)
                     {
                         return true;
@@ -177,6 +182,96 @@ namespace Napelem_API.Controllers
                 return new JsonResult(Ok(stor));
             }
             return Conflict("Component does not exists.");
+        }
+        //ez lehet nem is kell
+        /*private bool IsStorageComponentIdEqualsComponentID(int compId, Storage stor)
+        {
+            if(compId==stor.componentID)
+            {
+                return true;
+            }
+            return false;
+        }*/
+        private bool IsReservationProjectIdEqualProjectId(int proID, Reservation res)
+        {
+            using (var db = new NapelemContext())
+            {
+                if (res.projectID == proID)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private bool IsReservationComponentIdEqualComponentId(int compId, Reservation res)
+        {
+            using (var db = new NapelemContext())
+            {
+                if (res.componentID == compId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        [HttpPost("ChangeStorage")]
+        public JsonResult ChangeStorage(ReservationsAndProjectId reservations)
+        {
+
+            for (int i = 0; i < reservations.resers.Count; i++)
+            {
+                using (var context = new NapelemContext())
+                {
+                    if (IsReservationProjectIdEqualProjectId(reservations.projectId, reservations.resers[i]) == true)
+                    {
+                        while (reservations.resers[i].reservationQuantity != 0)
+                        {
+                            foreach (var s in context.Storages)
+                            {
+                                if (IsReservationComponentIdEqualComponentId(s.componentID, reservations.resers[i]) == true)
+                                {
+                                    if (IsComponentExistsByID(s) == true && reservations.resers[i].componentID == s.componentID)
+                                    {
+
+                                        if (s.current_quantity - reservations.resers[i].reservationQuantity < 0)
+                                        {
+                                            reservations.resers[i].reservationQuantity -= s.current_quantity;
+                                            s.current_quantity -= s.current_quantity;
+                                            //ChangeCurrent_quantity(s);//ha minden klappol itt ki kell törölni az adott sort
+                                            context.Storages.Attach(s);
+                                            context.Storages.Remove(s);
+                                        }
+                                        else
+                                        {
+                                            s.current_quantity -= reservations.resers[i].reservationQuantity;
+                                            reservations.resers[i].reservationQuantity -= reservations.resers[i].reservationQuantity;
+                                            ChangeCurrent_quantity(s);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        return new JsonResult(Conflict("There isnt a component like this"));
+                                    }
+                                }
+                            }
+                            context.SaveChanges();
+                        }
+                        int sum = 0;
+                        var storages = context.Storages.Where(s => s.componentID == reservations.resers[i].componentID).ToList();
+                        foreach (var s in storages)
+                        {
+                            sum += s.current_quantity;
+                        }
+                        var component = context.Components.Where(c => c.componentID == storages[0].componentID).FirstOrDefault();
+                        component.quantity = sum;
+                        var reservation = context.Reservations.Where(r => r.reservationID == reservations.resers[i].reservationID).FirstOrDefault();
+                        context.Reservations.Attach(reservation);
+                        context.Reservations.Remove(reservation);
+                    }
+                    context.SaveChanges();
+                }
+            }
+            return new JsonResult(Ok(reservations));
         }
 
     }

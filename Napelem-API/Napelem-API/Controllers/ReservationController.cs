@@ -42,6 +42,7 @@ namespace Napelem_API.Controllers
                 foreach (var r in context.Reservations)
                 {
                     reservation.Add(r);
+                    
                 }
             }
             return new JsonResult(Ok(reservation));
@@ -56,7 +57,7 @@ namespace Napelem_API.Controllers
                     db.SaveChanges();
                 }
                 return new JsonResult(Ok(res));
-         
         }
+        
     }
 }

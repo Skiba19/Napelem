@@ -57,22 +57,39 @@ namespace Napelem_API.Controllers
             }
             return new JsonResult(Ok(pro));
         }
-        [HttpGet]
-        public JsonResult Get(string projectID)
+        [HttpGet("GetProjectById")]
+        public JsonResult GetProjectById(int projectID)
         {
             using (NapelemContext context = new NapelemContext())
             {
-                //Login button
                 foreach (Project p in context.Projects)
                 {
-                    if (p.projectID == int.Parse(projectID))
+                    if (p.projectID == projectID)
                     {
-                        return new JsonResult(p);
+                        if (StatusCheck(p.projectID) == true)
+                        {
+                            return new JsonResult(p);
+                        }
                     }
-                    //ehelyett kell elküldeni az "Acess Denied"-t
                 }
                 return null;
             }
         }
+        
+        private bool StatusCheck(int proId) 
+        {
+            using (NapelemContext db = new NapelemContext())
+            {
+                foreach (var p in db.Projects)
+                {
+                    if (p != null && p.status == "Scheduled" && p.projectID ==proId)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        
     }
 }
