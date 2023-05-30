@@ -53,6 +53,7 @@ namespace Napelem_API.Controllers
             {
                 var project = db.Projects.Where(p => p.projectID == pro.projectID).FirstOrDefault();
                 project.status = pro.status;
+                project.project_price = pro.project_price;
                 db.SaveChanges();
             }
             return new JsonResult(Ok(pro));
