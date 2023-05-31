@@ -220,16 +220,16 @@ namespace Napelem_API.Controllers
         {
             
             using (var context = new NapelemContext())
-            {
-                
+            {                
                 foreach(var res in reservations.resers)
                 {
-                    var result = context.Components.Where(c => c.componentID == res.componentID).FirstOrDefault();
-                    if (result != null)
+                    var CompResult = context.Components.Where(c => c.componentID == res.componentID).FirstOrDefault();
+                    var ProjectResult = context.Projects.Where(s => s.projectID == res.projectID).FirstOrDefault();
+                    if (CompResult != null && ProjectResult!=null)
                     {
-                        if (res.componentID == result.componentID)
+                        if (res.componentID == CompResult.componentID && reservations.projectId==ProjectResult.projectID)
                         {
-                            result.quantity -= res.reservationQuantity;
+                            CompResult.quantity -= res.reservationQuantity;
                         }
                     }
                     

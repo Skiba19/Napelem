@@ -15,6 +15,7 @@ namespace Napelem_API.Controllers
         {
             using (NapelemContext context = new NapelemContext())
             {
+                project.project_price = 0;
                 context.Projects.Add(project);
                 context.SaveChanges();
             }
@@ -53,6 +54,16 @@ namespace Napelem_API.Controllers
             {
                 var project = db.Projects.Where(p => p.projectID == pro.projectID).FirstOrDefault();
                 project.status = pro.status;
+                db.SaveChanges();
+            }
+            return new JsonResult(Ok(pro));
+        }
+        [HttpPost("ChangePrice")]
+        public JsonResult ChangePrice(Project pro)
+        {
+            using (var db = new NapelemContext())
+            {
+                var project = db.Projects.Where(p => p.projectID == pro.projectID).FirstOrDefault();
                 project.project_price = pro.project_price;
                 db.SaveChanges();
             }
